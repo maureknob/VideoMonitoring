@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VideoMonitoring.Data;
 using VideoMonitoring.Models;
+using VideoMonitoring.Services.ServerConnection;
 
 namespace VideoMonitoring.Controllers
 {
@@ -9,6 +10,13 @@ namespace VideoMonitoring.Controllers
     [Route("api")]
     public class ServerController : ControllerBase
     {
+        IServerConnection _serverConnection;
+
+        public ServerController(IServerConnection serverConnection)
+        {
+            _serverConnection = serverConnection;
+        }
+
         [HttpPost]
         [Route("server")]
         public async Task<IActionResult> CreateServerAsync(
@@ -83,6 +91,22 @@ namespace VideoMonitoring.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpGet]
+        [Route("servers/available/{serverId}")]
+        public async Task<IActionResult> CanConnect(
+            [FromRoute] Guid serverId,
+            [FromServices] AppDbContext context)
+        {
+            var server = await context
+                .Servers
+                .FirstOrDefaultAsync(x => x.Id == serverId);
+
+            if (server == null)
+                return NotFound();
+
+            return Ok(_serverConnection.CanConnect(server));
         }
     }
 }
