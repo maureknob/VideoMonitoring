@@ -10,5 +10,12 @@ namespace VideoMonitoring.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("DataSource=app.db;Cache=Shared");
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Server>()
+                .HasMany(s => s.Videos)
+                .WithOne(v => v.Server);
+        }
     }
 }
