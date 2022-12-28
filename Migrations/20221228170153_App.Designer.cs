@@ -11,8 +11,8 @@ using VideoMonitoring.Data;
 namespace VideoMonitoring.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221227165827_Relationships")]
-    partial class Relationships
+    [Migration("20221228170153_App")]
+    partial class App
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,7 +46,7 @@ namespace VideoMonitoring.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ContentPath")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -54,6 +54,9 @@ namespace VideoMonitoring.Migrations
 
                     b.Property<Guid?>("ServerId")
                         .HasColumnType("TEXT");
+
+                    b.Property<long>("SizeInBytes")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

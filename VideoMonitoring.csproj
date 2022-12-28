@@ -14,4 +14,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqLite" Version="7.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Files\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Videos\" />
+  </ItemGroup>
+
 </Project>

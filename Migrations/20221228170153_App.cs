@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VideoMonitoring.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class App : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,22 +31,34 @@ namespace VideoMonitoring.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Content = table.Column<byte[]>(type: "BLOB", nullable: true)
+                    ServerId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    SizeInBytes = table.Column<long>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Videos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Videos_Servers_ServerId",
+                        column: x => x.ServerId,
+                        principalTable: "Servers",
+                        principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Videos_ServerId",
+                table: "Videos",
+                column: "ServerId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Servers");
+                name: "Videos");
 
             migrationBuilder.DropTable(
-                name: "Videos");
+                name: "Servers");
         }
     }
 }

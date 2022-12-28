@@ -43,7 +43,7 @@ namespace VideoMonitoring.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ContentPath")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -51,6 +51,9 @@ namespace VideoMonitoring.Migrations
 
                     b.Property<Guid?>("ServerId")
                         .HasColumnType("TEXT");
+
+                    b.Property<long>("SizeInBytes")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

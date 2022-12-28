@@ -5,6 +5,8 @@
 
 #database file
 app.db
+app.db-shm
+app.db-wal
 
 # User-specific files
 *.rsuser

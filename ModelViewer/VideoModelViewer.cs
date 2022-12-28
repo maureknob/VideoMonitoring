@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VideoMonitoring.Models
+namespace VideoMonitoring.ModelViewer
 {
-    public class Video
+    public class VideoModelViewer
     {
         public Guid Id { get; set; }
+        [Required]
         public string? Description { get; set; }
-        public Server? Server { get; set; }
+        [Required]
+        public string Data { get; set; }
         public long SizeInBytes { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
 }
